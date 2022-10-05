@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.container {
+  @apply sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto px-5
+}
+
+nav ul li a.menu-link {
+  @apply text-lg text-gray-900 block px-5 md:px-3 py-2 md:py-1 md:hover:text-gray-600 hover:bg-gray-200 md:hover:bg-white transition-all
+}
+
+/* .form-group {} */
+
+.form-label {
+  @apply text-lg block w-full pb-1
+}
+
+.form-control {
+  @apply w-full px-3 py-2 border border-gray-300 hover:border-gray-400 focus:border-gray-400 focus:shadow-sm rounded outline-none
+}
+
+.btn {
+  @apply text-lg w-full px-5 py-2 rounded outline-none opacity-100 hover:opacity-90 focus:opacity-90 transition-all
+}
