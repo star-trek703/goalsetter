@@ -43,7 +43,7 @@ const Header = () => {
           </ul>
         </nav>
         <div className='flex'>
-          <a className='text-3xl mr-1 md:mr-3 pt-0.5 rounded hover:opacity-90 transition-all' href='/signin' target='_blank'>
+          <a className='text-3xl mr-1 md:mr-3 pt-0.5 rounded hover:opacity-90 transition-all' rel='noreferrer' href='https://github.com/star-trek703/goalsetter' target='_blank'>
             <FaGithubSquare />
           </a>
 

@@ -42,10 +42,10 @@ const AddGoal = ({ showAddModal, setShowAddModal }) => {
   }
 
   return (
-    <div className={ `fixed top-0 left-0 h-full w-full ${ showAddModal ? 'scale-100' : 'scale-0' }` }>
+    <div className={ `fixed top-0 left-0 h-full w-full px-5 md:px-0 ${ showAddModal ? 'scale-100' : 'scale-0' }` }>
       <div className='fixed top-0 left-0 bg-gray-500 opacity-60 h-full w-full' onClick={ () => setShowAddModal(false) }></div>
 
-      <div className={ `bg-white w-1/3 relative top-1/4 mx-auto p-5 rounded-md shadow-md transition-all ${ showAddModal ? 'scale-100' : 'scale-50' }` }>
+      <div className={ `bg-white w-full sm:w-1/2 md:w-1/3 relative top-1/4 mx-auto p-5 rounded-md shadow-md transition-all ${ showAddModal ? 'scale-100' : 'scale-50' }` }>
         <div className='flex items-start justify-between pb-4'>
           <h1 className='text-2xl text-gray-700 font-semibold'>
             Add Goal
