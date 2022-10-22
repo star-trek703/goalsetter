@@ -9,9 +9,10 @@ const initialState = {
   message: ''
 }
 
-export const getGoals = createAsyncThunk('goals/getGoals', async (thunkAPI) => {
+export const getGoals = createAsyncThunk('goals/getGoals', async (_, thunkAPI) => {
   try {
-    return await goalService.getGoals()
+    const token = thunkAPI.getState().auth.user.token
+    return await goalService.getGoals(token)
   } catch (error) {
     const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
     return thunkAPI.rejectWithValue(message)
@@ -20,7 +21,8 @@ export const getGoals = createAsyncThunk('goals/getGoals', async (thunkAPI) => {
 
 export const createGoal = createAsyncThunk('goals/createGoal', async (goalData, thunkAPI) => {
   try {
-    return await goalService.createGoal(goalData)
+    const token = thunkAPI.getState().auth.user.token
+    return await goalService.createGoal(goalData, token)
   } catch (error) {
     const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
     return thunkAPI.rejectWithValue(message)
@@ -29,8 +31,9 @@ export const createGoal = createAsyncThunk('goals/createGoal', async (goalData, 
 
 export const updateGoal = createAsyncThunk('goals/updateGoal', async (goalData, thunkAPI) => {
   try {
+    const token = thunkAPI.getState().auth.user.token
     const { id, text } = goalData
-    return await goalService.updateGoal(id, { text })
+    return await goalService.updateGoal(id, { text }, token)
   } catch (error) {
     const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
     return thunkAPI.rejectWithValue(message)
@@ -39,7 +42,8 @@ export const updateGoal = createAsyncThunk('goals/updateGoal', async (goalData, 
 
 export const deleteGoal = createAsyncThunk('goals/deleteGoal', async (id, thunkAPI) => {
   try {
-    return await goalService.deleteGoal(id)
+    const token = thunkAPI.getState().auth.user.token
+    return await goalService.deleteGoal(id, token)
   } catch (error) {
     const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
     return thunkAPI.rejectWithValue(message)
