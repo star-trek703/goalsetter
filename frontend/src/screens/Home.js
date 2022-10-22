@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { FaPlus } from 'react-icons/fa'
-import { useNavigate } from 'react-router-dom'
+import { ImSpinner8 } from 'react-icons/im'
 import { useDispatch, useSelector } from 'react-redux'
 import AddGoal from '../components/AddGoal'
 import SingleGoal from '../components/SingleGoal'
@@ -11,18 +11,18 @@ import EditGoal from '../components/EditGoal'
 const Home = () => {
   const [showAddModal, setShowAddModal] = useState(false)
   const [showEditModal, setShowEditModal] = useState(false)
+  
+  const [editData, setEditData] = useState({
+    id: '',
+    text: ''
+  })
 
   const { user } = useSelector((state) => state.auth)
-  const { goals, isError, message } = useSelector((state) => state.goals)
+  const { goals, isLoading, isError, message } = useSelector((state) => state.goals)
 
   const dispatch = useDispatch()
-  const navigate = useNavigate()
 
   useEffect(() => {
-    if (!user) {
-      navigate('/')
-    }
-
     if (user) {
       dispatch(getGoals())
     }
@@ -30,13 +30,21 @@ const Home = () => {
     return () => {
       dispatch(reset())
     }
-  }, [user, navigate, isError, message, dispatch])
+  }, [user, isError, message, dispatch])
 
   const handleAddModal = () => {
     setShowAddModal(!showAddModal)
   }
 
-  const handleEdit = ({ id, text }) => {
+  const handleEdit = ({ _id, text }) => {
+    setEditData(prevState => {
+      return {
+        ...prevState,
+        id: _id, 
+        text: text
+      };
+    })
+    
     setShowEditModal(!showEditModal)
   }
 
@@ -71,7 +79,13 @@ const Home = () => {
           ) : '' }
         </div>
 
-        { goals.length ? 
+        { isLoading ? (
+          <div className='bg-white shadow p-5 rounded'>
+            {/* Loading... */}
+            <ImSpinner8 className='animate-spin text-gray-900 text-3xl mx-auto' />
+          </div>
+        ) : 
+        goals.length ? 
         (
           <div className='grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-start'>
             {
@@ -86,7 +100,7 @@ const Home = () => {
       </div>
 
       <AddGoal showAddModal={ showAddModal } setShowAddModal={ setShowAddModal } />
-      <EditGoal showEditModal={ showEditModal } setShowEditModal={ setShowEditModal } />
+      <EditGoal showEditModal={ showEditModal } setShowEditModal={ setShowEditModal } editData={ editData } />
     </>
   )
 }

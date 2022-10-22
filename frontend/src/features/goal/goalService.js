@@ -22,6 +22,12 @@ const createGoal = async (goalData) => {
   return response.data
 }
 
+const updateGoal = async (id, text) => {
+  const response = await axios.put(API_URL +'/'+ id, text, config)
+
+  return response.data
+}
+
 const deleteGoal = async (id) => {
   const response = await axios.delete(API_URL +`/${ id }`, config)
 
@@ -31,6 +37,7 @@ const deleteGoal = async (id) => {
 const goalService = {
   getGoals,
   createGoal,
+  updateGoal,
   deleteGoal
 }
 
