@@ -1,7 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { FaGithubSquare, FaBars, FaTimes } from 'react-icons/fa'
 import { logout, reset } from '../features/auth/authSlice'
 import { reset as goalReset } from '../features/goal/goalSlice'
@@ -11,8 +10,14 @@ const Header = () => {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const { pathname } = useLocation()
 
   const { user } = useSelector((state) => state.auth)
+
+  useEffect(() => {
+    setIsMenuOpen(false)
+  }, [pathname])
+  
   
   const handleLogout = () => {
     dispatch(logout())
